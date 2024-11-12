@@ -45,6 +45,11 @@ jobs:
         if: ${{'windows-latest' != matrix.os}}
         run: |
           GOARCH=amd64 CGO_ENABLED=1 go build -o bin/tmd-${{ runner.os }}-amd64 -v -ldflags "-w -s" .
+
+      - name: Build for ARM64
+        if: ${{'windows-latest' != matrix.os}}
+        run: |
+          GOARCH=arm64 CGO_ENABLED=0 go build -o bin/tmd-${{ runner.os }}-amd64 -v -ldflags "-w -s" .
       
       - name: Test
         if: ${{!startsWith(github.ref, 'refs/tags/v')}}
